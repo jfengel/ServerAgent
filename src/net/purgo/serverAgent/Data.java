@@ -5,6 +5,9 @@ public class Data {
     public static void call() {
         call++;
     }
+    public static void call(String s) {
+        call++;
+    }
     public static void init() {
         System.out.println("Instrumenting...");
     }
