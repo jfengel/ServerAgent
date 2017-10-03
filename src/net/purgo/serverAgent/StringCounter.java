@@ -3,6 +3,7 @@ package net.purgo.serverAgent;
 import javassist.*;
 import javassist.expr.*;
 
+import javax.servlet.http.*;
 import java.io.*;
 import java.lang.instrument.*;
 import java.security.*;
@@ -44,23 +45,15 @@ public class StringCounter implements ClassFileTransformer {
             CtMethod[] declaredMethods = ct.getDeclaredMethods();
             for (CtMethod method : declaredMethods) {
                 if(!method.isEmpty() && !Modifier.isNative(method.getModifiers())){
-//                    method.insertBefore(" { " +
-//                            "Data.call();" +
-//                            "}");
-                    method.instrument(new ExprEditor() {
-                        public void edit(NewExpr e) {
-                            try {
-                                System.out.println(e.getClassName());
-                                if(e.getClassName().equals("java.lang.String")) {
-                                    method.insertAt(e.getLineNumber(),
-                                            "{ Data.call(\"" + e.getClassName() + "\"); }");
-                                }
-                            } catch (CannotCompileException t) {
-                                System.out.println("Can't instrument " + className + "." + method.getName()
-                                        + " " + e.getClass().getName() + " " + t.getMessage());
-                            }
-                        }
-                    });
+
+                    // There are other ways to identify servlet requests, but this does for the moment
+                    if(method.getName().equals("service")) {
+                        Class clz = HttpServletRequest.class;   // TODO This is bogus, but I need to force the compiler to recognize its existence
+                        System.out.println("Instrumenting " + className + "." + method.getName());
+
+                        method.insertBefore("{ Data.begin(); }");
+                        method.insertAfter("{ Data.end(); }");
+                    }
 
                 }
             }
