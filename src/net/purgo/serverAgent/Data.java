@@ -51,18 +51,18 @@ public class Data {
     }
 
     /** Call this to begin a counting session */
-    public static void begin() {
+    public static void begin(String source) {
         startCount.get()[0] = counter.get()[0];
         startTime.set(System.currentTimeMillis());
         lastMemoryMark.set(Runtime.getRuntime().freeMemory());
     }
 
     /** Call this to end a counting session */
-    public static void end() {
+    public static void end(String source) {
         int total = counter.get()[0] - startCount.get()[0];
         long time = (System.currentTimeMillis() - startTime.value());
         long mem = lastMemoryMark.value() - Runtime.getRuntime().freeMemory();
-        System.out.println("Created " + total + " strings in " +
+        System.out.println(source + ": " + total + " strings in " +
                 time + " with memory " + mem );
     }
 }

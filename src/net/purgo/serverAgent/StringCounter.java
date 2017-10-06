@@ -29,8 +29,9 @@ public class StringCounter implements ClassFileTransformer {
             }
             if (className == null
                     || className.startsWith("net/purgo/serverAgent")        // Don't instrument ourselves
-                    || className.startsWith("java")
-                    || className.startsWith("sun")
+                    || className.startsWith("java/")
+                    || className.startsWith("javax/")
+                    || className.startsWith("sun/")
                     || className.startsWith("com/sun")
                     || className.startsWith("jdk")
                     || className.startsWith("org/xml")
@@ -39,7 +40,6 @@ public class StringCounter implements ClassFileTransformer {
                     return classfileBuffer;
             }
 
-//            System.out.println("Instrumenting " + className);
             CtClass ct = cp.makeClass(new ByteArrayInputStream(classfileBuffer));
 
             CtMethod[] declaredMethods = ct.getDeclaredMethods();
@@ -51,8 +51,8 @@ public class StringCounter implements ClassFileTransformer {
                         Class clz = HttpServletRequest.class;   // TODO This is bogus, but I need to force the compiler to recognize its existence
                         System.out.println("Instrumenting " + className + "." + method.getName());
 
-                        method.insertBefore("{ Data.begin(); }");
-                        method.insertAfter("{ Data.end(); }");
+                        method.insertBefore("{ Data.begin(\"" + className + "." + method.getName() + "\"); }");
+                        method.insertAfter("{ Data.end(\"" + className + "." + method.getName() + "\"); }");
                     }
 
                 }
