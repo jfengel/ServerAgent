@@ -9,7 +9,7 @@ public class Data {
     static class IntThreadLocal extends ThreadLocal<int[]>{
         @Override
         public int[] initialValue() {
-            return new int[1];
+            return new int[] { -1 };
         }
     }
 
@@ -56,17 +56,24 @@ public class Data {
 
     /** Call this to begin a counting session */
     public static void begin(String source) {
-        startCount.get()[0] = counter.get()[0];
-        startTime.set(System.currentTimeMillis());
-        lastMemoryMark.set(Runtime.getRuntime().freeMemory());
+        int start = startCount.get()[0];
+        if(start < 0) {
+            startCount.get()[0] = counter.get()[0];
+            startTime.set(System.currentTimeMillis());
+            lastMemoryMark.set(Runtime.getRuntime().freeMemory());
+        }
     }
 
     /** Call this to end a counting session */
     public static void end(String source) {
-        int total = counter.get()[0] - startCount.get()[0];
+        int start = startCount.get()[0];
+        if(start < 0)
+            return;
+        int total = counter.get()[0] - start;
         long time = (System.currentTimeMillis() - startTime.value());
         long mem = lastMemoryMark.value() - Runtime.getRuntime().freeMemory();
         responses.add(source + ": " + total + " strings in " +
-                time + " with memory " + mem + " from thread " + Thread.currentThread() );
+                time + "ms with memory " + mem + " from thread " + Thread.currentThread() );
+        startCount.get()[0] = -1;
     }
 }
