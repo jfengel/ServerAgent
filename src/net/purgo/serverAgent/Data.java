@@ -1,7 +1,11 @@
 package net.purgo.serverAgent;
 
+import java.util.*;
+
 /** Data being collected by the server agent */
 public class Data {
+    public static List<String> responses = new ArrayList<>();
+
     static class IntThreadLocal extends ThreadLocal<int[]>{
         @Override
         public int[] initialValue() {
@@ -62,7 +66,7 @@ public class Data {
         int total = counter.get()[0] - startCount.get()[0];
         long time = (System.currentTimeMillis() - startTime.value());
         long mem = lastMemoryMark.value() - Runtime.getRuntime().freeMemory();
-        System.out.println(source + ": " + total + " strings in " +
+        responses.add(source + ": " + total + " strings in " +
                 time + " with memory " + mem + " from thread " + Thread.currentThread() );
     }
 }
