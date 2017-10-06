@@ -63,6 +63,6 @@ public class Data {
         long time = (System.currentTimeMillis() - startTime.value());
         long mem = lastMemoryMark.value() - Runtime.getRuntime().freeMemory();
         System.out.println(source + ": " + total + " strings in " +
-                time + " with memory " + mem );
+                time + " with memory " + mem + " from thread " + Thread.currentThread() );
     }
 }
