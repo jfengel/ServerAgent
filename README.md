@@ -18,4 +18,4 @@ To look at the results go to http://localhost:1729
 
 ## License
 
-(c) Joshua Engel, all rights reserved
+Hey, go for it. It's yours. Try to make the world a better place.
