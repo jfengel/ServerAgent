@@ -37,7 +37,6 @@ public class StringCounter implements ClassFileTransformer {
                     || className.startsWith("sun/")
                     || className.startsWith("com/sun")
                     || className.startsWith("jdk")
-                    || className.startsWith("org/xml")
                     )
             {
                     return classfileBuffer;
