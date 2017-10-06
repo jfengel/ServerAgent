@@ -6,6 +6,10 @@ This is a sample Java agent that instruments a Servlet and counts the strings us
 
 Packaged as an IntelliJ file. Import the project and click Build->Build Project.
 
+## Demo
+
+Look in the demo directory. Read the README for instructions.
+
 ## Tests
 
 To run with a jetty server:
