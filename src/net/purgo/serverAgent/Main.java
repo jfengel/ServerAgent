@@ -28,13 +28,15 @@ public class Main {
                     w.append("HTTP/1.1 200 OK\n\n");
                     w.append("<body>\n");
                     w.append("<ul>\n");
-                    if(Data.responses.isEmpty()) {
-                        w.append("<p>Nothing here yet</p>");
-                    }
-                    for(String r : Data.responses) {
-                        w.append("<li>\n");
-                        w.append(r);        // TODO really need to sanitize this
-                        w.append("</li>\n");
+                    synchronized ((Data.responses)) {
+                        if (Data.responses.isEmpty()) {
+                            w.append("<p>Nothing here yet</p>");
+                        }
+                        for (String r : Data.responses) {
+                            w.append("<li>\n");
+                            w.append(r);        // TODO really need to sanitize this
+                            w.append("</li>\n");
+                        }
                     }
                     w.append("</ul>\n");
                     w.append("</body>\n");

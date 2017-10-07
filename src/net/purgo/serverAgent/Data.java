@@ -4,7 +4,8 @@ import java.util.*;
 
 /** Data being collected by the server agent */
 public class Data {
-    public static List<String> responses = new ArrayList<>();
+    // TODO this really ought to become a circular queue
+    public static List<String> responses = Collections.synchronizedList(new ArrayList<>());
 
     static class IntThreadLocal extends ThreadLocal<int[]>{
         @Override
