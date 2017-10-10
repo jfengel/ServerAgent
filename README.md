@@ -14,7 +14,7 @@ Look in the demo directory. Read the README for instructions.
 
 To run with a jetty server:
 
-java -javaagent:ServerAgent.jar start.jar
+java -javaagent:../target/ServerAgent-1.0-SNAPSHOT.jar -jar start.jar
 
 Note that the javassist.jar has to be in the same directory as the ServerAgent.jar
 
