@@ -4,21 +4,11 @@ This is a sample Java agent that instruments a Servlet and counts the strings us
 
 ## Installation
 
-Packaged as an IntelliJ file. Import the project and click Build->Build Project.
+This is a maven project. Run mvn install
 
 ## Demo
 
-Look in the demo directory. Read the README for instructions.
-
-## Tests
-
-To run with a jetty server:
-
-java -javaagent:../target/ServerAgent-1.0-SNAPSHOT.jar -jar start.jar
-
-Note that the javassist.jar has to be in the same directory as the ServerAgent.jar
-
-To look at the results go to http://localhost:1729
+Look in the demo directory. Read the [README](./demo/README.md) for instructions.
 
 ## License
 

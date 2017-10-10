@@ -1,6 +1,6 @@
 To run:
 
-java -javaagent:../out/artifacts/ServerAgent/ServerAgent.jar -jar start.jar
+```java -javaagent:../target/ServerAgent-1.0-SNAPSHOT.jar -jar start.jar```
 
 With a web browser, view <http://localhost:8080/hello-world/> a few times
 
